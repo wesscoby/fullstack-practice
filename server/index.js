@@ -5,18 +5,15 @@ import express from 'express';
 import session from 'express-session';
 import { buildContext } from 'graphql-passport';
 import { default as expressPlayground } from 'graphql-playground-middleware-express';
-import { makeExecutableSchema } from 'graphql-tools';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import uuid from 'uuid/v4';
-import resolvers from './api/resolvers';
-import typeDefs from './api/schema';
+import schema from './graphql';
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
 import { User } from './db/model';
 import { createAuthorizationToken, LocalStrategy } from './helpers/auth';
 import { GraphQLLocalStrategy } from 'graphql-passport';
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const startServer = async () => {
 
@@ -71,6 +68,10 @@ const startServer = async () => {
     // Api Route (Playground and Endpoint)
     app.get('/api', expressPlayground({ endpoint: '/graphql' }));
 
+    // Mongoose Promise and Schema Indexing
+    mongoose.Promise = global.Promise;
+    mongoose.set('useCreateIndex', true);
+
     // Start Express and Mongoose Server
     mongoose.connect(LocalDB_URI, { 
             useNewUrlParser: true,
@@ -84,9 +85,6 @@ const startServer = async () => {
         });
     })
     .catch(console.log);
-
-    mongoose.Promise = global.Promise;
-    mongoose.set('useCreateIndex', true);
 }
 
 startServer();
