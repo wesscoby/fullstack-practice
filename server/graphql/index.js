@@ -9,7 +9,7 @@ import * as Interface from './resolvers/interface.resolver';
 
 const typeDefs = importSchema(join(__dirname, 'schema', 'index.graphql'));
 
-export const resolvers = {
+const resolvers = {
     Query,
     Mutation,
     ...Scalar,
