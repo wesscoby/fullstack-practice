@@ -1,0 +1,3 @@
+interface LoginStatus {
+    status: String!
+}

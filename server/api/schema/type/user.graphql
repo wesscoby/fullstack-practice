@@ -1,5 +1,6 @@
 # import * from "../input/user.input.graphql"
 # import Event from "./event.graphql"
+# import LoginStatus from "../interface/user.interface.graphql"
 
 type User {
     _id: ID!
@@ -8,17 +9,22 @@ type User {
     createdEvents: [Event!]!
 }
 
-type AuthPayload {
-    userId: ID!
-    token: String!
-    tokenExpiration: Int!
+type LoginSuccess implements LoginStatus {
+    status: String!
+    _id: ID!
+    email: String!
+}
+
+type LoginFailure implements LoginStatus {
+    status: String!
+    message: String!
 }
 
 type Query {
     currentUser: User
     user(email: String!): User!
     users: [User!]!
-    login(userInput: UserInput): User!
+    login(userInput: UserInput): LoginStatus!
 }
 
 type Mutation {

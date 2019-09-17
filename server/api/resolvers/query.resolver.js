@@ -36,17 +36,28 @@ export const users = async (parent, args, context) => {
 }
 
 export const login = async (parent, { userInput }, context) => {
-    const { email, password } = userInput;
+    try {
+        const { email, password } = userInput;
 
-    const { user } = await context.authenticate('graphql-local', { email, password });
-    context.login(user);
+        const { user } = await context.authenticate('graphql-local', { email, password });
+        context.login(user);
 
-    return user
+        return {
+            status: 'successful',
+            _id: user.id,
+            email: user.email
+        }
+    } catch(error) {
+        return {
+            status: 'failed',
+            message: error
+        };
+    }
 }
 
-export const currentUser = async (parent, args, { req, res }) => {
-    if(!req.user) return null;
-    const { userId, role } = retrieveAuthorizationToken(req.user);
+export const currentUser = async (parent, args, { user }) => {
+    if(!user) return null;
+    const { userId, role } = retrieveAuthorizationToken(user);
 
     return await User.getById(userId);
 }
