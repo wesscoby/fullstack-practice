@@ -54,10 +54,10 @@ export const authenticateUser = async (email, password) => {
 export const LocalStrategy = async (email, password, done) => {
     try {
         const user = await User.getByEmail(email);
-        if(!user) done("Login Failed: Invalid Credentials!", false);
+        if(!user) done("Invalid Credentials!", false);
 
         const isPasswordMatch = await user.isPasswordMatch(password);
-        if(!isPasswordMatch) done("Login Failed: Invalid Credentials!: Password", false);
+        if(!isPasswordMatch) done("Invalid Credentials!", false);
         
         done(null, user);
     } catch (error) {
