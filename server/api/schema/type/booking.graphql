@@ -1,0 +1,21 @@
+# import DateTime from "./scalar.graphql"
+# import Event from "./event.graphql"
+# import User from "./user.graphql"
+
+type Booking {
+    _id: ID!
+    event: Event!
+    user: User!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+
+type Query {
+    bookings: [Booking!]!
+}
+
+type Mutation {
+    bookEvent(eventId: ID!): Booking!
+    cancelBooking(bookingId: ID!): Event!
+}

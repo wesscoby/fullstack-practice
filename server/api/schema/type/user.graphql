@@ -1,0 +1,27 @@
+# import * from "../input/user.input.graphql"
+# import Event from "./event.graphql"
+
+type User {
+    _id: ID!
+    email: String!
+    password: String
+    createdEvents: [Event!]!
+}
+
+type AuthPayload {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+}
+
+type Query {
+    currentUser: User
+    user(email: String!): User!
+    users: [User!]!
+    login(userInput: UserInput): User!
+}
+
+type Mutation {
+    createUser(userInput: UserInput): User!
+}
+

@@ -1,0 +1,21 @@
+# import * from "../input/event.input.graphql"
+# import User from "./user.graphql"
+# import DateTime from "./scalar.graphql"
+
+type Event {
+    _id: ID!
+    title: String!
+    description: String!
+    price: Float!
+    date: DateTime!
+    creator: User!
+}
+
+type Query {
+    event(id: ID!): Event!
+    events: [Event!]!
+}
+
+type Mutation {
+    createEvent(eventInput: EventInput): Event!
+}
