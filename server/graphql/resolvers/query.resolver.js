@@ -55,6 +55,18 @@ export const login = async (parent, { userInput }, context) => {
     }
 }
 
+export const logout = (parent, args, context) => {
+    try {
+        if(!context.user) return true;
+
+        context.logout();
+
+    return true;
+    } catch(error) {
+        return false;
+    }
+}
+
 export const currentUser = async (parent, args, { user }) => {
     if(!user) return null;
     const { userId, role } = retrieveAuthorizationToken(user);

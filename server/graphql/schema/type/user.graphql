@@ -25,6 +25,7 @@ type Query {
     user(email: String!): User!
     users: [User!]!
     login(userInput: UserInput): LoginStatus!
+    logout: Boolean!
 }
 
 type Mutation {
