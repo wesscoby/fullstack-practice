@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import { Event, User, Booking } from '../../db/model';
 
-export const createEvent = async (parent, args, context) => {
+export const createEvent = async (parent, args, { user }) => {
     try {
-        // const { Event } = context.db;
+        if(!user) throw new Error("You must be Logged In to continue!")
         const { title, description, price, date, creator } = args.eventInput;
         const event = new Event({
             title,
