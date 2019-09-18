@@ -10,7 +10,7 @@ import passport from 'passport';
 import uuid from 'uuid/v4';
 import schema from './graphql';
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
-import { User } from './db/model';
+import * as db from './db/model';
 import { createAuthorizationToken, LocalStrategy } from './helpers/auth';
 import { GraphQLLocalStrategy } from 'graphql-passport';
 
@@ -48,7 +48,7 @@ const startServer = async () => {
     
     // Deserialize User
     passport.deserializeUser((userId, done) => {
-        User.findById(userId, (error, user) => {
+        db.User.findById(userId, (error, user) => {
             const token = createAuthorizationToken(user)
             done(error, token);
         });
