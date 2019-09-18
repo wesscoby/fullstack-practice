@@ -66,8 +66,8 @@ export const logout = (parent, args, context) => {
     }
 }
 
-export const currentUser = async (parent, args, { user }) => {
-    if(!user) return null;
+export const currentUser = async (parent, args, { user, isAuthenticated, isUnauthenticated }) => {
+    if(isUnauthenticated()) return null;
     const { userId, role } = retrieveAuthorizationToken(user);
 
     return await User.getById(userId);

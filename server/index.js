@@ -61,7 +61,7 @@ const startServer = async () => {
     });
 
 
-    server.applyMiddleware({ app, cors: { credentials: false } });
+    server.applyMiddleware({ app, cors: false  });
 
     // Home Route
     app.get('/', (request, response) => {
