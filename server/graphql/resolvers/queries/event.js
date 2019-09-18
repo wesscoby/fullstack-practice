@@ -1,7 +1,10 @@
-import { Event } from '../../../db/model'; 
 
 
-export const event = async (parent, { id }, context) => {
+export const event = async (
+    parent, 
+    { id }, 
+    { db: { Event } }
+) => {
     try {
         return await Event.getOne(id);
     } catch(error) {
@@ -9,7 +12,11 @@ export const event = async (parent, { id }, context) => {
     }
 }
 
-export const events = async (parent, args, context) => {
+export const events = async (
+    parent, 
+    args, 
+    { db: { Event } }
+) => {
     try {
         return await Event.getAll();
     } catch(error) {

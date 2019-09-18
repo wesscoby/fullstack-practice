@@ -1,7 +1,10 @@
-import { Booking } from '../../../db/model';
 
 
-export const bookings = async (parent, args, context) => {
+export const bookings = async (
+    parent, 
+    args, 
+    { db:  { Booking } }
+) => {
     try {
         return await Booking
                     .find({})

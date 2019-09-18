@@ -1,13 +1,18 @@
-import { User, Event} from '../../../db/model';
 import { retrieveAuthorizationToken } from '../../../helpers/auth'
 
 // Search for a user by email
-export const user = async (parent, { email }, context) => {
-    return await User.getByEmail(email);
-}
+export const user = async (
+    parent, 
+    { email }, 
+    { db: { User } }
+) => await User.getByEmail(email);
 
 // Get all users
-export const users = async (parent, args, context) => {
+export const users = async (
+    parent,
+    args,
+    { db: { User } }
+) => {
     try {
         return await User
                         .find({})
@@ -19,12 +24,14 @@ export const users = async (parent, args, context) => {
 }
 
 // User login
-export const login = async (parent, { userInput }, context) => {
+export const login = async (
+    parent, 
+    { userInput: { email, password } }, 
+    { authenticate, login }
+) => {
     try {
-        const { email, password } = userInput;
-
-        const { user } = await context.authenticate('graphql-local', { email, password });
-        context.login(user);
+        const { user } = await authenticate('graphql-local', { email, password });
+        login(user);
 
         return {
             status: 'successful',
@@ -40,11 +47,11 @@ export const login = async (parent, { userInput }, context) => {
 }
 
 // User Logout
-export const logout = (parent, args, context) => {
+export const logout = (parent, args, { isUnauthenticated, logout }) => {
     try {
-        if(!context.user) return true;
+        if(isUnauthenticated()) return true;
 
-        context.logout();
+        logout();
 
     return true;
     } catch(error) {
@@ -52,9 +59,12 @@ export const logout = (parent, args, context) => {
     }
 }
 
-
 // Get Currently logged in user
-export const currentUser = async (parent, args, { user, isAuthenticated, isUnauthenticated }) => {
+export const currentUser = async (
+    parent, 
+    args, 
+    { user, isAuthenticated, isUnauthenticated, db: { User } }
+) => {
     if(isUnauthenticated()) return null;
     const { userId, role } = retrieveAuthorizationToken(user);
 

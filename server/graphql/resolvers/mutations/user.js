@@ -1,14 +1,15 @@
 import bcrypt from 'bcrypt';
-import { User } from '../../../db/model';
 
-export const createUser = async (parent, args, context) => {
+export const createUser = async (
+    parent, 
+    { userInput: { email, password } }, 
+    { db: { User } }
+) => {
     try {
-        // const { User } = context.db;
-        const { email, password } = args.userInput;
         const existingUser = await User.findOne({ email: email }).exec();
 
         if (existingUser) {
-            throw new Error("User already exists!");
+            throw new Error("A user with this email address already exists!");
         }
         
         const hashedPassword = await bcrypt.hash(password, 12);

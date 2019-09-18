@@ -57,7 +57,7 @@ const startServer = async () => {
     // Apollo Server instance
     const server = new ApolloServer({
         schema,
-        context: async ({ req, res }) => buildContext({ req, res })
+        context: async ({ req, res }) => buildContext({ req, res, db })
     });
 
 

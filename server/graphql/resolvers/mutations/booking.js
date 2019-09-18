@@ -1,11 +1,12 @@
-import { Booking } from '../../../db/model';
 
 
-export const bookEvent = async (parent, args, context) => {
+export const bookEvent = async (
+    parent, 
+    { eventId }, 
+    { db: { Booking } }
+) => {
     try {
-        const { eventId } = args;
-        // const { Booking, Event } = context.db;
-
+    
         const booking = new Booking({
             user: "5d7e8b2e87bed31f9d1cb5b0",
             event: eventId
