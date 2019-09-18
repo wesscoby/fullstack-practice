@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-// import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../config'
 import { Event, User, Booking } from '../../db/model';
 import { authenticateUser, retrieveAuthorizationToken } from '../../helpers/auth';
 

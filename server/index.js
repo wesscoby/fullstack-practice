@@ -20,7 +20,10 @@ const startServer = async () => {
     // Express instance
     const app = express();
     app.use(cookieParser());
-    app.use(cors());
+    app.use(cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+    }));
 
     // Use Express Sesion
     app.use(
