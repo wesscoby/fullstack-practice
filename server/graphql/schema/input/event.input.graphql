@@ -5,5 +5,4 @@ input EventInput {
     description: String!
     price: Float!
     date: DateTime!
-    creator: ID!
 }

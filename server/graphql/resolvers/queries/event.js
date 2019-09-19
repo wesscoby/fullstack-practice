@@ -3,10 +3,14 @@
 export const event = async (
     parent, 
     { id }, 
-    { db: { Event } }
+    { db: { Event }, isUnauthenticated }
 ) => {
     try {
-        return await Event.getOne(id);
+        if(isUnauthenticated()) {
+            return await Event.getById(id).exec();
+        } else {
+            return await Event.getOne(id);
+        }
     } catch(error) {
         throw error;
     }
@@ -15,10 +19,14 @@ export const event = async (
 export const events = async (
     parent, 
     args, 
-    { db: { Event } }
+    { db: { Event }, isUnauthenticated }
 ) => {
     try {
-        return await Event.getAll();
+        if(isUnauthenticated()) {
+            return await Event.find({}).exec();
+        } else {
+            return await Event.getAll();
+        }
     } catch(error) {
         throw error;
     }

@@ -3,9 +3,10 @@
 export const bookings = async (
     parent, 
     args, 
-    { db:  { Booking } }
+    { db:  { Booking }, isUnauthenticated }
 ) => {
     try {
+        if(isUnauthenticated()) throw new Error("Login first to view this resource!");
         return await Booking
                     .find({})
                     .populate({
