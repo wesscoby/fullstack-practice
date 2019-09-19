@@ -19,6 +19,7 @@ build
 .env.test.local
 .env.production.local
 .vscode
+.sass-cache
 
 npm-debug.log*
 yarn-debug.log*
