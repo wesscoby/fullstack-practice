@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import { EVENTS } from '../queries/';
+// import { Query } from 'react-apollo';
+    import { MDBRow, MDBCol } from 'mdbreact';
+// import { getEvents } from '../queries/';
+// import Spinner from '../components/loaders/Spinner';
+// import Elipsis from '../components/loaders/Elipsis';
+import AuthForm from '../components/forms/AuthForm';
 
 class AuthPage extends Component {
+
+    state = {
+
+    }
+
     render() {
         return (
-            <div>
-                <h1 className="red-text ">Auth Page</h1>
-                <Query query={EVENTS}>
-                    {({ loading, error, data }) => {
-                        if(loading) return (<h4>Loading...</h4>);
-                        if(error) console.log(error);
-
-                        console.log(data);
-                        return (<p>Finished Loading...</p>)
-                    }}
-                </Query>
-            </div>
+            <MDBRow className="auth-page d-flex flex-row justify-content-center align-items-center">
+                <MDBCol 
+                    xs="12" sm="11" md="8" lg="6" 
+                    className="_col d-flex flex-row justify-content-center align-items-center"
+                >
+                    <AuthForm />
+                </MDBCol>
+            </MDBRow>
         )
     }
 }

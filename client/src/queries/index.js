@@ -1,6 +1,6 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
 
-export const LOGIN = gql`
+export const login = gql`
     query UserLogin {
         login (userInput: {
             email: "",
@@ -18,7 +18,16 @@ export const LOGIN = gql`
     }
 `;
 
-export const EVENTS = gql`
+export const getCurrentUser = gql`
+    {
+        currentUser {
+            email
+
+        }
+    }
+`
+
+export const getEvents = gql`
     query getEvents {
         events {
             _id

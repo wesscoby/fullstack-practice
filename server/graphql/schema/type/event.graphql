@@ -8,7 +8,7 @@ type Event {
     description: String!
     price: Float!
     date: DateTime!
-    creator: User!
+    creator: User
 }
 
 type Query {
