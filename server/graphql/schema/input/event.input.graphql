@@ -1,0 +1,8 @@
+# import DateTime from "../type/scalar.graphql"
+
+input EventInput {
+    title: String!
+    description: String!
+    price: Float!
+    date: DateTime!
+}

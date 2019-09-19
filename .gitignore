@@ -19,6 +19,7 @@ build
 .env.test.local
 .env.production.local
 .vscode
+.idea
 .sass-cache
 
 npm-debug.log*

@@ -1,0 +1,51 @@
+html {
+    box-sizing: border-box;
+}
+    *, *:before, *:after {
+    box-sizing: inherit;
+}
+
+// General imports
+@import "./variables";
+@import "./mixins";
+
+// Pages
+@import "./pages/auth";
+
+// Components
+@import "./components/spinner";
+@import "./components/elipsis";
+@import "./components/mainNavigation";
+
+
+// General Styles
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+    
+    #root {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        // header {
+            // height: 8%;
+        // }
+
+        main {
+            height: 90%;
+        }
+
+        // footer {
+        //     // height: 2%;
+        //     p {
+        //         font-size: 11px;
+        //         color: $gray;
+        //     }
+        // }
+    }
+}
