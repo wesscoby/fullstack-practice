@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
 import Elipsis from '../loaders/Elipsis';
+import { Link } from 'react-router-dom';
 
-class AuthForm extends Component {
+class LoginForm extends Component {
 
     state = {
         emailInput: '',
@@ -29,41 +30,7 @@ class AuthForm extends Component {
         event.preventDefault();
         this.toggleElipsis();
 
-        const requestBody = {
-            query: `
-                query {
-                    login(userInput: { 
-                        email: "${this.state.emailInput}", 
-                        password: "${this.state.passwordInput}"}
-                    ) {
-                        status
-                        ... on LoginSuccess {
-                            _id
-                            email
-                        }
-                        ... on LoginFailure {
-                            message
-                        }
-                    }
-                }
-            `
-        }
-        console.log(requestBody)
-        console.log(this.state)
-
-        fetch('http://localhost:4000/graphql', {
-            method: 'POST',
-            body: JSON.stringify(requestBody),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            this.toggleElipsis();
-            console.log(data);
-        })
-        .catch(console.log);
+        // Submit Data
     }
 
     render() {
@@ -71,7 +38,7 @@ class AuthForm extends Component {
             <MDBCard>
     
                 <MDBCardHeader  color="unique-color-dark">
-                    <h3 className="p-2">Login</h3>
+                    <p className="pt-3 blue-text text-center">LOGIN</p>
                 </MDBCardHeader>
     
                 <MDBCardBody className="mx-1">
@@ -79,7 +46,8 @@ class AuthForm extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <MDBInput 
                         label="Your email" 
-                        group 
+                        group
+                        icon="envelope" 
                         type="text"
                         name="emailInput"
                         value={this.state.emailInput}
@@ -90,6 +58,7 @@ class AuthForm extends Component {
                         <MDBInput
                             label="Your password"
                             group
+                            icon="lock"
                             type="password"
                             name="passwordInput"
                             onInput={this.handleChange}
@@ -100,11 +69,11 @@ class AuthForm extends Component {
         
                         <p className="font-small grey-text d-flex justify-content-end">
                             Forgot
-                            <a
-                                href="#!" className="dark-grey-text font-weight-bold ml-1"
+                            <Link
+                                to="/auth/reset-password" className="dark-grey-text font-weight-bold ml-1"
                             >
                                 Password?
-                            </a>
+                            </Link>
                         </p>
         
                         <div className="mb-4 mt-5 text-center">
@@ -122,12 +91,12 @@ class AuthForm extends Component {
     
                     <p className="font-small grey-text d-flex justify-content-center">
                         Don't have an account?
-                        <a
-                            href="#!"
+                        <Link
+                            to="/auth/signup"
                             className="dark-grey-text font-weight-bold ml-1"
                         >
                             Sign up
-                        </a>
+                        </Link>
                     </p>
                     
                 </MDBCardBody>
@@ -136,4 +105,4 @@ class AuthForm extends Component {
     }
 };
 
-export default AuthForm;
+export default LoginForm;

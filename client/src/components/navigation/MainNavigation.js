@@ -21,7 +21,7 @@ class MainNavigation extends Component {
             <header className="main-navigation">
                 <MDBNavbar fixed="top" color="unique-color-dark" dark expand="lg">
                     <MDBNavbarBrand href="/" className="brand">
-                        <strong className="blue-text">EasyEvents</strong>
+                        <strong className="blue-text">easyevents</strong>
                     </MDBNavbarBrand>
 
                     <MDBNavbarToggler onClick={this.toggleCollapse} />
