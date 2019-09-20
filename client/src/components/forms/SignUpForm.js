@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 class SignUpForm extends Component {
 
     state = {
+        fullNameInput: '',
         emailInput: '',
         passwordInput: '',
         elipsisToggle: false
@@ -44,11 +45,23 @@ class SignUpForm extends Component {
                 <MDBCardBody className="mx-1">
     
                     <form onSubmit={this.handleSubmit}>
+
                         <MDBInput 
-                        label="Your email" 
+                            label="Full name"
+                            group
+                            icon="user" 
+                            type="text"
+                            name="fullNameInput"
+                            value={this.state.fullNameInput}
+                            onInput={this.handleChange}
+                            validate 
+                        />
+
+                        <MDBInput 
+                        label="Email address" 
                         group
                         icon="envelope" 
-                        type="text"
+                        type="email"
                         name="emailInput"
                         value={this.state.emailInput}
                         onInput={this.handleChange}
@@ -56,7 +69,7 @@ class SignUpForm extends Component {
                         />
                         
                         <MDBInput
-                            label="Your password"
+                            label="Password"
                             group
                             icon="lock"
                             type="password"

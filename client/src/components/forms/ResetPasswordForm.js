@@ -44,7 +44,7 @@ class ResetPasswordForm extends Component {
     
                     <form onSubmit={this.handleSubmit}>
                         <MDBInput 
-                        label="Email Address" 
+                        label="Email Address"
                         group
                         icon="envelope" 
                         type="email"
@@ -78,7 +78,7 @@ class ResetPasswordForm extends Component {
                     </form>
     
                     <p className="font-small grey-text d-flex justify-content-center">
-                        ALready have an account?
+                        Already have an account?
                         <Link
                             to="/auth/login"
                             className="dark-grey-text font-weight-bold ml-1"

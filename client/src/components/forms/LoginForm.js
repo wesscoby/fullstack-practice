@@ -45,10 +45,10 @@ class LoginForm extends Component {
     
                     <form onSubmit={this.handleSubmit}>
                         <MDBInput 
-                        label="Your email" 
+                        label="Email address" 
                         group
                         icon="envelope" 
-                        type="text"
+                        type="email"
                         name="emailInput"
                         value={this.state.emailInput}
                         onInput={this.handleChange}
@@ -56,7 +56,7 @@ class LoginForm extends Component {
                         />
                         
                         <MDBInput
-                            label="Your password"
+                            label="Password"
                             group
                             icon="lock"
                             type="password"
