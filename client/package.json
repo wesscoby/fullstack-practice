@@ -22,8 +22,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "sass:build": "sass ./scss/index.scss ./src/index.css --style compressed",
-    "sass:watch": "sass --watch ./scss:./src --style compressed",
+    "sass:build": "sass ./scss/index.scss ./src/style/index.css --style compressed",
+    "sass:watch": "sass --watch ./scss:./src/style --style compressed",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
