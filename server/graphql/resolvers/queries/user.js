@@ -1,4 +1,4 @@
-import { retrieveAuthorizationToken } from '../../../helpers/auth'
+import { ver, verifyUser } from '../../../helpers/auth'
 
 // Search for a user by email
 export const user = async (
@@ -66,7 +66,7 @@ export const currentUser = async (
     { user, isAuthenticated, isUnauthenticated, db: { User } }
 ) => {
     if(isUnauthenticated()) return null;
-    const { userId, role } = retrieveAuthorizationToken(user);
+    const { userId, role } = verifyUser(user);
 
     return await User.getById(userId);
 }

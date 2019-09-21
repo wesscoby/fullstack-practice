@@ -1,4 +1,4 @@
-import { retrieveAuthorizationToken } from '../../../helpers/auth';
+import { verifyUser } from '../../../helpers/auth';
 
 export const createEvent = async (
     parent, 
@@ -7,7 +7,7 @@ export const createEvent = async (
 ) => {
     try {
         if(!user) throw new Error("You must be Logged In to continue!")
-        const { userId } = retrieveAuthorizationToken(user);
+        const { userId } = verifyUser(user);
 
         // Add Current User Id to new Event
         const event = new Event({
