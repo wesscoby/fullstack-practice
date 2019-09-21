@@ -1,4 +1,4 @@
-import { ver, verifyUser } from '../../../helpers/auth'
+import { verifyUser } from '../../../helpers/auth'
 
 // Search for a user by email
 export const user = async (
