@@ -3,8 +3,7 @@ import UserSchema from '../schema/user.schema';
 import EventSchema from '../schema/event.schema';
 import BookingSchema from '../schema/booking.schema';
 
-module.exports = {
-    Event: Model('Event', EventSchema),
-    User: Model('User', UserSchema),
-    Booking: Model('Booking', BookingSchema)
-}
+
+export const Event = Model('Event', EventSchema);
+export const User = Model('User', UserSchema);
+export const Booking = Model('Booking', BookingSchema);

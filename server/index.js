@@ -8,6 +8,7 @@ import { default as expressPlayground } from 'graphql-playground-middleware-expr
 import mongoose from 'mongoose';
 import passport from 'passport';
 import uuid from 'uuid/v4';
+
 import schema from './graphql';
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
 import * as db from './db/model';
