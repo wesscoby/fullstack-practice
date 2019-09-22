@@ -7,7 +7,7 @@ export const event = async (
 ) => {
     try {
         if(isUnauthenticated()) {
-            return await Event.getById(id).exec();
+            return await Event.getOne(id);
         } else {
             return await Event.getOne(id);
         }
