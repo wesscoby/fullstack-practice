@@ -3,7 +3,7 @@
 export const event = async (
     parent, 
     { id }, 
-    { db: { Event }, isUnauthenticated }
+    { models: { Event }, isUnauthenticated }
 ) => {
     try {
         if(isUnauthenticated()) {
@@ -19,7 +19,7 @@ export const event = async (
 export const events = async (
     parent, 
     args, 
-    { db: { Event }, isUnauthenticated }
+    { models: { Event }, isUnauthenticated }
 ) => {
     try {
         if(isUnauthenticated()) {

@@ -3,7 +3,7 @@
 export const bookings = async (
     parent, 
     args, 
-    { db:  { Booking }, isUnauthenticated }
+    { models:  { Booking }, isUnauthenticated }
 ) => {
     try {
         if(isUnauthenticated()) throw new Error("Login first to view this resource!");

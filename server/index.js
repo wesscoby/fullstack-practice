@@ -11,7 +11,7 @@ import uuid from 'uuid/v4';
 
 import schema from './graphql';
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
-import * as db from './db/model';
+import * as  models from './db/model';
 import { signUser, LocalStrategy } from './helpers/auth';
 import { GraphQLLocalStrategy } from 'graphql-passport';
 
@@ -49,7 +49,7 @@ const startServer = async () => {
     
     // Deserialize User
     passport.deserializeUser((userId, done) => {
-        db.User.findById(userId, (error, user) => {
+        models.User.findById(userId, (error, user) => {
             const token = signUser(user);
             done(error, token);
         });
@@ -58,7 +58,7 @@ const startServer = async () => {
     // Apollo Server instance
     const server = new ApolloServer({
         schema,
-        context: async ({ req, res }) => buildContext({ req, res, db })
+        context: async ({ req, res }) => buildContext({ req, res, models })
     });
 
 

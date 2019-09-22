@@ -4,14 +4,14 @@ import { verifyUser } from '../../../helpers/auth'
 export const user = async (
     parent, 
     { email }, 
-    { db: { User } }
+    { models: { User } }
 ) => await User.getByEmail(email);
 
 // Get all users
 export const users = async (
     parent,
     args,
-    { db: { User } }
+    { models: { User } }
 ) => {
     try {
         return await User
@@ -63,7 +63,7 @@ export const logout = (parent, args, { isUnauthenticated, logout }) => {
 export const currentUser = async (
     parent, 
     args, 
-    { user, isAuthenticated, isUnauthenticated, db: { User } }
+    { user, isAuthenticated, isUnauthenticated, models: { User } }
 ) => {
     if(isUnauthenticated()) return null;
     const { userId, role } = verifyUser(user);

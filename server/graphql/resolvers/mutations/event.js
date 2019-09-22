@@ -3,7 +3,7 @@ import { verifyUser } from '../../../helpers/auth';
 export const createEvent = async (
     parent, 
     { eventInput: { title, description, price, date } },
-    { user, db: { Event, User } }
+    { user, models: { Event, User } }
 ) => {
     try {
         if(!user) throw new Error("You must be Logged In to continue!")

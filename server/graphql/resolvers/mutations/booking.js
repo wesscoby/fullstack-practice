@@ -3,7 +3,7 @@
 export const bookEvent = async (
     parent, 
     { eventId }, 
-    { db: { Booking } }
+    { models: { Booking } }
 ) => {
     try {
     

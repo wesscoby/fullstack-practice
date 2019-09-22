@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 export const createUser = async (
     parent, 
     { userInput: { email, password } }, 
-    { db: { User } }
+    { models: { User } }
 ) => {
     try {
         const existingUser = await User.findOne({ email: email }).exec();
