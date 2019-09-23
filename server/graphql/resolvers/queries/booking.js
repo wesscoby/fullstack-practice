@@ -1,4 +1,5 @@
-
+import { AuthenticationRequiredError } from '../../../helpers/errors';
+import { AuthenticationError } from 'apollo-server-express'
 
 export const bookings = async (
     parent, 
@@ -6,7 +7,7 @@ export const bookings = async (
     { models:  { Booking }, isUnauthenticated }
 ) => {
     try {
-        if(isUnauthenticated()) throw new Error("Login first to view this resource!");
+        if(isUnauthenticated()) throw new AuthenticationRequiredError();
         return await Booking
                     .find({})
                     .populate({

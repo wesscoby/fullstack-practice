@@ -1,5 +1,4 @@
 import { ApolloServer, ApolloError } from 'apollo-server-express';
-import { GraphQLError, formatError } from 'graphql';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
@@ -30,7 +29,7 @@ const startServer = async () => {
     // Use Express Sesion
     app.use(
         session({
-            genid: (req) => uuid(),
+            genid: () => uuid(),
             secret: SESSION_SECRET,
             resave: false,
             saveUninitialized: false,
@@ -61,8 +60,13 @@ const startServer = async () => {
         schema,
         context: async ({ req, res }) => buildContext({ req, res, models }),
         formatError: error => {
-            // if(error.originalError instanseof ApolloError ) return error;
-            return new GraphQLError(error.message)
+            if(error.originalError instanceof ApolloError ) return error;
+            // return new GraphQLError(error.message)
+            return {
+                message: error.message,
+                name: error.originalError.name,
+                path: error.path,
+            }
         }
     });
 
