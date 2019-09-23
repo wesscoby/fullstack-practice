@@ -1,4 +1,5 @@
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, ApolloError } from 'apollo-server-express';
+import { GraphQLError, formatError } from 'graphql';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
@@ -11,7 +12,7 @@ import uuid from 'uuid/v4';
 
 import schema from './graphql';
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
-import * as  models from './db/model';
+import * as  models from './models';
 import { signUser, LocalStrategy } from './helpers/auth';
 import { GraphQLLocalStrategy } from 'graphql-passport';
 
@@ -58,7 +59,11 @@ const startServer = async () => {
     // Apollo Server instance
     const server = new ApolloServer({
         schema,
-        context: async ({ req, res }) => buildContext({ req, res, models })
+        context: async ({ req, res }) => buildContext({ req, res, models }),
+        formatError: error => {
+            // if(error.originalError instanseof ApolloError ) return error;
+            return new GraphQLError(error.message)
+        }
     });
 
 

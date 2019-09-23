@@ -1,6 +1,6 @@
 import { sign, verify } from 'jsonwebtoken';
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../config';
-import { User } from '../db/model';
+import { User } from '../models';
 import { GraphQLLocalStrategy } from 'graphql-passport';
 
 export const signUser = (user) => {
