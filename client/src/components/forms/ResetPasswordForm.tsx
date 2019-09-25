@@ -1,24 +1,23 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
 import Elipsis from '../loaders/Elipsis';
-import { Link } from 'react-router-dom';
+import { FormState } from "../../interface/state";
 
-class SignUpForm extends Component {
+class ResetPasswordForm extends Component {
 
-    state = {
-        fullNameInput: '',
+    state: FormState = {
         emailInput: '',
-        passwordInput: '',
         elipsisToggle: false
     };
 
     toggleElipsis = () => {
-        this.setState(prevState => ({
+        this.setState((prevState: FormState) => ({
             elipsisToggle: !prevState.elipsisToggle
         }))
     }
 
-    handleChange = (event) => {
+    handleChange = (event: any) => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -27,7 +26,7 @@ class SignUpForm extends Component {
 
     
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         this.toggleElipsis();
 
@@ -39,26 +38,14 @@ class SignUpForm extends Component {
             <MDBCard>
     
                 <MDBCardHeader  color="unique-color-dark">
-                    <p className="pt-3 blue-text text-center">SIGN UP</p>
+                    <p className="pt-3 blue-text text-center">PASSWORD RESET</p>
                 </MDBCardHeader>
     
                 <MDBCardBody className="mx-1">
     
                     <form onSubmit={this.handleSubmit}>
-
                         <MDBInput 
-                            label="Full name"
-                            group
-                            icon="user" 
-                            type="text"
-                            name="fullNameInput"
-                            value={this.state.fullNameInput}
-                            onInput={this.handleChange}
-                            validate 
-                        />
-
-                        <MDBInput 
-                        label="Email address" 
+                        label="Email Address"
                         group
                         icon="envelope" 
                         type="email"
@@ -67,36 +54,25 @@ class SignUpForm extends Component {
                         onInput={this.handleChange}
                         validate 
                         />
-                        
-                        <MDBInput
-                            label="Password"
-                            group
-                            icon="lock"
-                            type="password"
-                            name="passwordInput"
-                            onInput={this.handleChange}
-                            value={this.state.passwordInput}
-                            validate
-                            containerClass="mb-0"
-                        />
         
                         <p className="font-small grey-text d-flex justify-content-end">
-                            Forgot
+                            Don't have an account?
                             <Link
-                                to="/auth/reset-password" className="dark-grey-text font-weight-bold ml-1"
+                                to="/auth/signup" 
+                                className="dark-grey-text font-weight-bold ml-1"
                             >
-                                Password?
+                                Sign Up
                             </Link>
                         </p>
         
                         <div className="mb-4 mt-5 text-center">
                         { this.state.elipsisToggle ? (<Elipsis color="#007bff" />) :
                             (<MDBBtn
-                                color="blue"
+                                color="red"
                                 type="submit"
                                 className="btn-block z-depth-2"
                             >
-                                Register
+                                Reset Password
                             </MDBBtn>)
                         }
                         </div>
@@ -118,4 +94,4 @@ class SignUpForm extends Component {
     }
 };
 
-export default SignUpForm;
+export default ResetPasswordForm;

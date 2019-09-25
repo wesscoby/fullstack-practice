@@ -1,22 +1,28 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
 import Elipsis from '../loaders/Elipsis';
+import { Link } from 'react-router-dom';
+import { FormState } from "../../interface/state";
 
-class ResetPasswordForm extends Component {
+interface LoginFormState extends FormState {
+    passwordInput: string;
+}
 
-    state = {
+class LoginForm extends Component {
+
+    state: LoginFormState = {
         emailInput: '',
+        passwordInput: '',
         elipsisToggle: false
     };
 
     toggleElipsis = () => {
-        this.setState(prevState => ({
+        this.setState((prevState: LoginFormState) => ({
             elipsisToggle: !prevState.elipsisToggle
         }))
     }
 
-    handleChange = (event) => {
+    handleChange = (event: any) => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -25,7 +31,7 @@ class ResetPasswordForm extends Component {
 
     
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         this.toggleElipsis();
 
@@ -37,14 +43,14 @@ class ResetPasswordForm extends Component {
             <MDBCard>
     
                 <MDBCardHeader  color="unique-color-dark">
-                    <p className="pt-3 blue-text text-center">PASSWORD RESET</p>
+                    <p className="pt-3 blue-text text-center">LOGIN</p>
                 </MDBCardHeader>
     
                 <MDBCardBody className="mx-1">
     
                     <form onSubmit={this.handleSubmit}>
                         <MDBInput 
-                        label="Email Address"
+                        label="Email address" 
                         group
                         icon="envelope" 
                         type="email"
@@ -53,37 +59,48 @@ class ResetPasswordForm extends Component {
                         onInput={this.handleChange}
                         validate 
                         />
+                        
+                        <MDBInput
+                            label="Password"
+                            group
+                            icon="lock"
+                            type="password"
+                            name="passwordInput"
+                            onInput={this.handleChange}
+                            value={this.state.passwordInput}
+                            validate
+                            containerClass="mb-0"
+                        />
         
                         <p className="font-small grey-text d-flex justify-content-end">
-                            Don't have an account?
+                            Forgot
                             <Link
-                                to="/auth/signup" 
-                                className="dark-grey-text font-weight-bold ml-1"
+                                to="/auth/reset-password" className="dark-grey-text font-weight-bold ml-1"
                             >
-                                Sign Up
+                                Password?
                             </Link>
                         </p>
         
                         <div className="mb-4 mt-5 text-center">
                         { this.state.elipsisToggle ? (<Elipsis color="#007bff" />) :
                             (<MDBBtn
-                                color="red"
+                                color="blue"
                                 type="submit"
                                 className="btn-block z-depth-2"
                             >
-                                Reset Password
+                                Login
                             </MDBBtn>)
                         }
                         </div>
                     </form>
     
                     <p className="font-small grey-text d-flex justify-content-center">
-                        Already have an account?
+                        Don't have an account?
                         <Link
-                            to="/auth/login"
+                            to="/auth/signup"
                             className="dark-grey-text font-weight-bold ml-1"
                         >
-                            Login
+                            Sign up
                         </Link>
                     </p>
                     
@@ -93,4 +110,4 @@ class ResetPasswordForm extends Component {
     }
 };
 
-export default ResetPasswordForm;
+export default LoginForm;

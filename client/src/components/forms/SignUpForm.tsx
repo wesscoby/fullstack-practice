@@ -2,22 +2,29 @@ import React, { Component } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
 import Elipsis from '../loaders/Elipsis';
 import { Link } from 'react-router-dom';
+import { FormState } from "../../interface/state";
 
-class LoginForm extends Component {
+interface SignupFormState extends FormState {
+    fullNameInput: string;
+    passwordInput: string;
+}
 
-    state = {
+class SignUpForm extends Component {
+
+    state: SignupFormState = {
+        fullNameInput: '',
         emailInput: '',
         passwordInput: '',
         elipsisToggle: false
     };
 
     toggleElipsis = () => {
-        this.setState(prevState => ({
+        this.setState((prevState: SignupFormState) => ({
             elipsisToggle: !prevState.elipsisToggle
         }))
     }
 
-    handleChange = (event) => {
+    handleChange = (event: any) => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -26,7 +33,7 @@ class LoginForm extends Component {
 
     
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         this.toggleElipsis();
 
@@ -38,12 +45,24 @@ class LoginForm extends Component {
             <MDBCard>
     
                 <MDBCardHeader  color="unique-color-dark">
-                    <p className="pt-3 blue-text text-center">LOGIN</p>
+                    <p className="pt-3 blue-text text-center">SIGN UP</p>
                 </MDBCardHeader>
     
                 <MDBCardBody className="mx-1">
     
                     <form onSubmit={this.handleSubmit}>
+
+                        <MDBInput 
+                            label="Full name"
+                            group
+                            icon="user" 
+                            type="text"
+                            name="fullNameInput"
+                            value={this.state.fullNameInput}
+                            onInput={this.handleChange}
+                            validate 
+                        />
+
                         <MDBInput 
                         label="Email address" 
                         group
@@ -83,19 +102,19 @@ class LoginForm extends Component {
                                 type="submit"
                                 className="btn-block z-depth-2"
                             >
-                                Login
+                                Register
                             </MDBBtn>)
                         }
                         </div>
                     </form>
     
                     <p className="font-small grey-text d-flex justify-content-center">
-                        Don't have an account?
+                        Already have an account?
                         <Link
-                            to="/auth/signup"
+                            to="/auth/login"
                             className="dark-grey-text font-weight-bold ml-1"
                         >
-                            Sign up
+                            Login
                         </Link>
                     </p>
                     
@@ -105,4 +124,4 @@ class LoginForm extends Component {
     }
 };
 
-export default LoginForm;
+export default SignUpForm;
