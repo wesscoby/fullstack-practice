@@ -2,21 +2,22 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
 import Elipsis from '../loaders/Elipsis';
+import { FormState } from "../../interface/state";
 
 class ResetPasswordForm extends Component {
 
-    state = {
+    state: FormState = {
         emailInput: '',
         elipsisToggle: false
     };
 
     toggleElipsis = () => {
-        this.setState(prevState => ({
+        this.setState((prevState: FormState) => ({
             elipsisToggle: !prevState.elipsisToggle
         }))
     }
 
-    handleChange = (event) => {
+    handleChange = (event: any) => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -25,7 +26,7 @@ class ResetPasswordForm extends Component {
 
     
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         this.toggleElipsis();
 

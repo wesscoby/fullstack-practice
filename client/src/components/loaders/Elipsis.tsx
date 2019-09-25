@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Elipsis = ({ color }) => (
+interface props {
+    color: string;
+}
+
+const Elipsis = ({ color }: props) => (
     <div className={`lds-ellipsis`}>
         <div style={{ backgroundColor: color }}></div>
         <div style={{ backgroundColor: color }}></div>

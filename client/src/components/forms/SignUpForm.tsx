@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
 import Elipsis from '../loaders/Elipsis';
 import { Link } from 'react-router-dom';
+import { FormState } from "../../interface/state";
+
+interface SignupFormState extends FormState {
+    fullNameInput: string;
+    passwordInput: string;
+}
 
 class SignUpForm extends Component {
 
-    state = {
+    state: SignupFormState = {
         fullNameInput: '',
         emailInput: '',
         passwordInput: '',
@@ -13,12 +19,12 @@ class SignUpForm extends Component {
     };
 
     toggleElipsis = () => {
-        this.setState(prevState => ({
+        this.setState((prevState: SignupFormState) => ({
             elipsisToggle: !prevState.elipsisToggle
         }))
     }
 
-    handleChange = (event) => {
+    handleChange = (event: any) => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -27,7 +33,7 @@ class SignUpForm extends Component {
 
     
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         this.toggleElipsis();
 

@@ -5,15 +5,17 @@ import {
     MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon 
 } from "mdbreact";
 
-
+interface State {
+    isOpen: boolean;
+}
 
 class MainNavigation extends Component {
-    state = {
+    state: State = {
         isOpen: false
     };
 
     toggleCollapse = () => {
-        this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+        this.setState((prevState: State) => ({ isOpen: !prevState.isOpen }));
     }
 
     render() {
