@@ -6,10 +6,11 @@ interface props {
 
 const Elipsis: React.FC<props> = ({ color }: props) => (
     <div className={`lds-ellipsis`}>
-        <div style={{ backgroundColor: color }}></div>
-        <div style={{ backgroundColor: color }}></div>
-        <div style={{ backgroundColor: color }}></div>
-        <div style={{ backgroundColor: color }}></div>
+        {[1,2,3,4].map(
+            item => (
+                <div key={item} style={{ backgroundColor: color }} />
+            )
+        )}
     </div>
 )
 

@@ -1,19 +1,16 @@
 import React from 'react';
 
-const Spinner: React.FC = () => (
+interface props {
+    color: string;
+}
+
+const Spinner: React.FC<props> = ({ color }: props) => (
     <div className="lds-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        {[1,2,3,4,5,6,7,8,9,10,11,12].map(
+            item => (
+                <div key={item} style={{ backgroundColor: color }} />
+            )
+        )}
     </div>
 )
 
