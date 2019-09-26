@@ -4,7 +4,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact'
 import Elipsis from '../loaders/Elipsis';
 import { FormState } from "../../interface/state";
 
-class ResetPasswordForm extends Component {
+class ResetPasswordForm extends Component<any> {
 
     state: FormState = {
         emailInput: '',
@@ -45,14 +45,14 @@ class ResetPasswordForm extends Component {
     
                     <form onSubmit={this.handleSubmit}>
                         <MDBInput 
-                        label="Email Address"
-                        group
-                        icon="envelope" 
-                        type="email"
-                        name="emailInput"
-                        value={this.state.emailInput}
-                        onInput={this.handleChange}
-                        validate 
+                            label="Email Address"
+                            group
+                            icon="envelope" 
+                            type="email"
+                            name="emailInput"
+                            value={this.state.emailInput}
+                            onInput={this.handleChange}
+                            validate 
                         />
         
                         <p className="font-small grey-text d-flex justify-content-end">
@@ -66,7 +66,8 @@ class ResetPasswordForm extends Component {
                         </p>
         
                         <div className="mb-4 mt-5 text-center">
-                        { this.state.elipsisToggle ? (<Elipsis color="#007bff" />) :
+                        { this.state.elipsisToggle ? 
+                            (<Elipsis color="#007bff" />) :
                             (<MDBBtn
                                 color="red"
                                 type="submit"

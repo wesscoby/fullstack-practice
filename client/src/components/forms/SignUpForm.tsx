@@ -9,7 +9,7 @@ interface SignupFormState extends FormState {
     passwordInput: string;
 }
 
-class SignUpForm extends Component {
+class SignUpForm extends Component<any> {
 
     state: SignupFormState = {
         fullNameInput: '',
@@ -64,14 +64,14 @@ class SignUpForm extends Component {
                         />
 
                         <MDBInput 
-                        label="Email address" 
-                        group
-                        icon="envelope" 
-                        type="email"
-                        name="emailInput"
-                        value={this.state.emailInput}
-                        onInput={this.handleChange}
-                        validate 
+                            label="Email address" 
+                            group
+                            icon="envelope" 
+                            type="email"
+                            name="emailInput"
+                            value={this.state.emailInput}
+                            onInput={this.handleChange}
+                            validate 
                         />
                         
                         <MDBInput
@@ -96,7 +96,8 @@ class SignUpForm extends Component {
                         </p>
         
                         <div className="mb-4 mt-5 text-center">
-                        { this.state.elipsisToggle ? (<Elipsis color="#007bff" />) :
+                        { this.state.elipsisToggle ? 
+                            (<Elipsis color="#007bff" />) :
                             (<MDBBtn
                                 color="blue"
                                 type="submit"

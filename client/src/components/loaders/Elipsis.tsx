@@ -4,7 +4,7 @@ interface props {
     color: string;
 }
 
-const Elipsis = ({ color }: props) => (
+const Elipsis: React.FC<props> = ({ color }: props) => (
     <div className={`lds-ellipsis`}>
         <div style={{ backgroundColor: color }}></div>
         <div style={{ backgroundColor: color }}></div>

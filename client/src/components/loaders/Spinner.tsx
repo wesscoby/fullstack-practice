@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Spinner = () => (
+const Spinner: React.FC = () => (
     <div className="lds-spinner">
         <div></div>
         <div></div>

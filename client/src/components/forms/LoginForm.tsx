@@ -8,7 +8,7 @@ interface LoginFormState extends FormState {
     passwordInput: string;
 }
 
-class LoginForm extends Component {
+class LoginForm extends Component<any> {
 
     state: LoginFormState = {
         emailInput: '',
@@ -82,7 +82,8 @@ class LoginForm extends Component {
                         </p>
         
                         <div className="mb-4 mt-5 text-center">
-                        { this.state.elipsisToggle ? (<Elipsis color="#007bff" />) :
+                        { this.state.elipsisToggle ? 
+                            (<Elipsis color="#007bff" />) :
                             (<MDBBtn
                                 color="blue"
                                 type="submit"
