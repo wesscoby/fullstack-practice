@@ -3,7 +3,7 @@ import { ApolloServer, ApolloError } from 'apollo-server-express';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as session from 'express-session';
-import * as mongoose from 'mongoose';
+import { set, connect } from 'mongoose';
 // import * as passport from 'passport';
 import { buildSchema } from 'type-graphql';
 import * as uuid from 'uuid/v4';
@@ -71,7 +71,6 @@ const startServer = async () => {
         }
     });
 
-
     server.applyMiddleware({ app, cors: false  });
 
     // Home Route
@@ -79,14 +78,10 @@ const startServer = async () => {
         response.end('Welcome!')
     });
 
-    // Api Route (Playground and Endpoint)
-    // app.get('/api', expressPlayground({ endpoint: '/graphql' }));
-
     // Mongoose Schema Indexing
-    mongoose.set('useCreateIndex', true);
-
+    set('useCreateIndex', true);
     // Start Express and Mongoose Server
-    mongoose.connect(LocalDB_URI, { 
+    connect(LocalDB_URI, { 
             useNewUrlParser: true,
             useUnifiedTopology: true
         }
