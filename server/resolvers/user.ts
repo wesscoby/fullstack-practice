@@ -1,7 +1,7 @@
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 
-import { User, UserModel } from '../entities/user';
+import User, { UserModel } from '../entities/user';
 import { LoginInput, NewUserInput } from './types/user.input';
 
 
@@ -30,7 +30,7 @@ export class UserResolver {
     // Get Current User
     @Query(() => User)
     async currentUser(): Promise<User[]> {
-        return await UserModel.find({});
+        return await UserModel.find({}).exec();
     }
 
     // User Signup
@@ -48,8 +48,7 @@ export class UserResolver {
         
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new UserModel({
-            firstName,
-            lastName,
+            name: `${firstName} ${lastName}`,
             email,
             password: hashedPassword
         })

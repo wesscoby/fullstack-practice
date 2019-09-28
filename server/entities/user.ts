@@ -1,23 +1,22 @@
 import { prop, Typegoose, Ref, arrayProp } from '@hasezoey/typegoose';
-import { Field, ID, ObjectType, Root } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
 import { Event } from './event';
 
 //! User Class 
 @ObjectType()
-export class User extends Typegoose {
+export default class User extends Typegoose {
     @Field(() => ID)
     id: string;
 
-    @prop()
-    public firstName: string;
+    // @prop()
+    // public firstName: string;
     
-    @prop()
-    public lastName: string;
+    // @prop()
+    // public lastName: string;
     
-    @Field(() => String)
-    async name(@Root() {firstName, lastName}: User): Promise<String> {
-        return await `${firstName} ${lastName}`;
-    }
+    @Field()
+    @prop()
+    public name: string;
     
     @Field()
     @prop({ unique: true, required: true, index: true })

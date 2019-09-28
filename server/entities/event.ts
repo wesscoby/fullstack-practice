@@ -1,6 +1,6 @@
 import { prop, Typegoose, Ref } from '@hasezoey/typegoose';
 import { Field, ID, Float, ObjectType } from 'type-graphql';
-import { User } from './user';
+import User from './user';
 
 
 //! Event Class
