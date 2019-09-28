@@ -17,6 +17,24 @@ import { EventResolver } from './resolvers/event';
 
 const startServer = async () => {
 
+    const schema = await buildSchema({
+        resolvers: [ UserResolver, EventResolver ],
+        dateScalarMode: "isoDate"
+    });
+
+    // Apollo Server instance
+    const server = new ApolloServer({
+        schema,
+        context: async ({ req, res }) => ({ req, res }),
+        formatError: error => {
+            if(error.originalError instanceof ApolloError ) return error;
+            return {
+                message: error.message,
+                path: error.path,
+            }
+        }
+    });
+
     // Express instance
     const app  = express();
     app.use(cors({
@@ -53,30 +71,9 @@ const startServer = async () => {
     //     });
     // });
 
-    const schema = await buildSchema({
-        resolvers: [ UserResolver, EventResolver ],
-        dateScalarMode: "isoDate"
-    });
 
-    // Apollo Server instance
-    const server = new ApolloServer({
-        schema,
-        context: async ({ req, res }) => ({ req, res }),
-        formatError: error => {
-            if(error.originalError instanceof ApolloError ) return error;
-            return {
-                message: error.message,
-                path: error.path,
-            }
-        }
-    });
-
+    // Add Express Middleware to ApolloServer
     server.applyMiddleware({ app, cors: false  });
-
-    // Home Route
-    app.get('/', (_request: any, response: { end: (arg0: string) => void; }) => {
-        response.end('Welcome!')
-    });
 
     // Mongoose Schema Indexing
     set('useCreateIndex', true);

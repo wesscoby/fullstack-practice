@@ -1,7 +1,7 @@
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 
-import { User, UserModel } from '../entity/user';
+import { User, UserModel } from '../entities/user';
 import { LoginInput, NewUserInput } from './types/user.input';
 
 

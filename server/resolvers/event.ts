@@ -1,6 +1,6 @@
 import { Resolver, Query } from 'type-graphql';
 
-import { Event, EventModel } from '../entity/event';
+import { Event, EventModel } from '../entities/event';
 
 @Resolver()
 export class EventResolver {
