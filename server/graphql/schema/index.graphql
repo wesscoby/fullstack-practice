@@ -1,3 +1,0 @@
-# import Query.*, Mutation.* from "./type/event.graphql"
-# import Query.*, Mutation.* from "./type/user.graphql"
-# import Query.*, Mutation.* from "./type/booking.graphql"
