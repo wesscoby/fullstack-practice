@@ -1,3 +1,0 @@
-interface LoginStatus {
-    status: String!
-}
