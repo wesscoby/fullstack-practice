@@ -1,7 +1,6 @@
-import { prop, Typegoose, ModelType, staticMethod, instanceMethod } from '@hasezoey/typegoose';
+import { prop, Typegoose, ModelType, staticMethod, instanceMethod, Ref } from '@hasezoey/typegoose';
 import { Field, Float, ObjectType, ID } from 'type-graphql';
 import User from './user';
-import { Ref } from '../types/types';
 
 type EventModelType = ModelType<Event> & typeof Event;
 type EventInstanceType = InstanceType<Event | any>;
@@ -29,7 +28,7 @@ export default class Event extends Typegoose {
     public date: Date;
     
     @Field(() => User)
-    @prop({ ref: User })
+    @prop({ ref: "User" })
     public creator: Ref<User>;
 
     @Field()

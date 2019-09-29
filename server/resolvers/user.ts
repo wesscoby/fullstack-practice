@@ -13,7 +13,7 @@ export class UserResolver {
     @Authorized()
     @Query(() => [User])
     async users(): Promise<User[]> {
-        return await UserModel.find({});
+        return await UserModel.find({}).populate({ path: 'createdEvents' });
     }
 
     // User Login

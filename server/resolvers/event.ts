@@ -34,7 +34,7 @@ export class EventResolver {
                 description,
                 price: +price,
                 date: new Date(date),
-                creator: user.id
+                creator: user
             })
     
             const createdEvent: Event = await event.save() as Event;

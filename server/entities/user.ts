@@ -2,11 +2,10 @@ import { Field, ObjectType, Root, ID } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 import { 
     prop, Typegoose, arrayProp, 
-    staticMethod, instanceMethod, ModelType
+    staticMethod, instanceMethod, ModelType, Ref
 } from '@hasezoey/typegoose';
 
 import Event from './event';
-import { Ref } from '../types/types';
 
 
 type UserModelType = ModelType<User> & typeof User;
@@ -37,7 +36,7 @@ export default class User extends Typegoose {
     public password: string;
     
     @Field(() => [Event])
-    @arrayProp({ itemsRef: Event })
+    @arrayProp({ itemsRef: "Event" })
     public createdEvents: Ref<Event>[];
 
     @Field()
