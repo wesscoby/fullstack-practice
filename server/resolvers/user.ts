@@ -9,14 +9,15 @@ import { MyContext } from '../types/interfaces';
 
 @Resolver()
 export class UserResolver {
-    // Get all Users
+    //! Queries
+    //* Get all Users
     @Authorized()
     @Query(() => [User])
     async users(): Promise<User[]> {
         return await UserModel.find({}).populate({ path: 'createdEvents' });
     }
 
-    // User Login
+    //* User Login
     @Query(() => User, { nullable: true })
     async login(
         @Arg("loginInput") { email, password }: LoginInput,
@@ -30,13 +31,13 @@ export class UserResolver {
         }
     }
 
-    // User Logout
+    //* User Logout
     @Query(() => Boolean)
     async logout(@Ctx() { logout }: MyContext): Promise<boolean> {
         return await logout();
     }
 
-    // Get Current User
+    //* Get Current User
     @Query(() => User, { nullable: true })
     async currentUser(@Ctx() { isAuthenticated, getUser }: MyContext): Promise<User | null> {
         if(!isAuthenticated()) {
@@ -46,7 +47,8 @@ export class UserResolver {
         }
     }
 
-    // User Signup
+    //! Mutations
+    //* User Signup
     @Mutation(() => User)
     async register(
         @Arg("newUserInput") { 

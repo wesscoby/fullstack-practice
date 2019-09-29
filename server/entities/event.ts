@@ -1,9 +1,9 @@
-import { prop, Typegoose, ModelType, staticMethod, instanceMethod, Ref } from '@hasezoey/typegoose';
+import { prop, Typegoose, ModelType, staticMethod, Ref } from '@hasezoey/typegoose';
 import { Field, Float, ObjectType, ID } from 'type-graphql';
 import User from './user';
 
 type EventModelType = ModelType<Event> & typeof Event;
-type EventInstanceType = InstanceType<Event | any>;
+// type EventInstanceType = InstanceType<Event | any>;
 
 //! Event Class
 @ObjectType()
@@ -27,6 +27,7 @@ export default class Event extends Typegoose {
     @prop()
     public date: Date;
     
+    // Reference to creator (User)
     @Field(() => User)
     @prop({ ref: "User" })
     public creator: Ref<User>;
@@ -65,16 +66,6 @@ export default class Event extends Typegoose {
                                 { path: 'createdEvents'}
                             ]
                         });
-    }
-
-    // Instance Methods
-    @instanceMethod
-    public async setUser(
-        this: EventInstanceType,
-        user: User
-    ): Promise<Event> {
-        this.creator = user;
-        return this.save();
     }
 }
 

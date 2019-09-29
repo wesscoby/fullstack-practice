@@ -7,18 +7,21 @@ import User from '../entities/user';
 
 @Resolver()
 export class EventResolver {
-    // Get all Events
+    //! Queries
+    //* Get all Events
     @Query(() => [Event])
     async events(): Promise<Event[]> {
         return await EventModel.getAll()
     }
 
-    // Get a single Event
+    //* Get a single Event
     @Query(() => Event, { nullable: true })
     async event(@Arg("eventId") eventId: string): Promise<Event | null> {
         return await EventModel.getOne(eventId);
     }
 
+    //! Mutations
+    //* Create a new Event
     @Authorized()
     @Mutation(() => Event)
     async createEvent(
@@ -38,9 +41,7 @@ export class EventResolver {
             })
     
             const createdEvent: Event = await event.save() as Event;
-
             await user.addEvent(createdEvent);
-            
             return await EventModel.getOne(createdEvent.id) as Event;
         } catch(error) {
             throw error;
