@@ -1,41 +1,42 @@
-import { prop, Typegoose, Ref, ModelType, staticMethod } from '@hasezoey/typegoose';
-import { Field, ID, Float, ObjectType } from 'type-graphql';
+import { prop, Typegoose, ModelType, staticMethod, instanceMethod } from '@hasezoey/typegoose';
+import { Field, Float, ObjectType, ID } from 'type-graphql';
 import User from './user';
+import { Ref } from '../types/types';
 
 type EventModelType = ModelType<Event> & typeof Event;
-// type EventInstanceType = InstanceType<Event | any>;
+type EventInstanceType = InstanceType<Event | any>;
 
 //! Event Class
 @ObjectType()
-export class Event extends Typegoose {
+export default class Event extends Typegoose {
     @Field(() => ID)
-    public id: string;
+    readonly id: string;
     
     @Field()
     @prop({ required: true })
-    title: string;
+    public title: string;
     
     @Field()
     @prop()
-    description: string;
+    public description: string;
     
     @Field(() => Float)
     @prop()
-    price: number;
+    public price: number;
     
     @Field()
     @prop()
-    date: Date;
+    public date: Date;
     
     @Field(() => User)
     @prop({ ref: User })
-    creator: Ref<User>;
+    public creator: Ref<User>;
 
     @Field()
-    createdAt: Date;
+    public createdAt: Date;
 
     @Field()
-    updatedAt: Date;
+    public updatedAt: Date;
 
     // Static Methods
     @staticMethod
@@ -65,6 +66,16 @@ export class Event extends Typegoose {
                                 { path: 'createdEvents'}
                             ]
                         });
+    }
+
+    // Instance Methods
+    @instanceMethod
+    public async setUser(
+        this: EventInstanceType,
+        user: User
+    ): Promise<Event> {
+        this.creator = user;
+        return this.save();
     }
 }
 

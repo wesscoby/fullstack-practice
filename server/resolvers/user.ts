@@ -13,7 +13,7 @@ export class UserResolver {
     @Authorized()
     @Query(() => [User])
     async users(): Promise<User[]> {
-        return await UserModel.find({}).exec();
+        return await UserModel.find({});
     }
 
     // User Login
@@ -53,7 +53,7 @@ export class UserResolver {
             firstName, lastName, email, password 
         }: NewUserInput
     ): Promise<User> {
-        const existingUser = await UserModel.findOne({ email: email }).exec();
+        const existingUser = await UserModel.getByEmail(email);
 
         if (existingUser) {
             throw new Error("A user with this email address already exists!");
@@ -67,6 +67,6 @@ export class UserResolver {
             password: hashedPassword
         })
         const createdUser = await user.save();
-        return await UserModel.populate(createdUser, [{ path: 'createdEvents' }])
+        return await UserModel.getById(createdUser.id) as User;
     }
 }

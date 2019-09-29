@@ -19,7 +19,7 @@ export function buildContext(request: Request, response: Response): MyContext {
     }
     
     const login = async (email: string, password: string): Promise<boolean> => {
-        const user = await UserModel.findOne({ email: email });
+        const user = await UserModel.getByEmail(email);
         if(!user) return false;
     
         const isPasswordMatch = await user.isPasswordMatch(password);
@@ -27,7 +27,7 @@ export function buildContext(request: Request, response: Response): MyContext {
     
         const token = signUser(user);
         request.session!.token = token;
-        return true ;
+        return true;
     }
 
     const logout = async(): Promise<boolean> => {
@@ -45,8 +45,8 @@ export function buildContext(request: Request, response: Response): MyContext {
     const getUser = async(): Promise<User | null> => {
         const token = request.session!.token
         if(token) {
-            const { userId }: any = verifyUser(token);
-            return await UserModel.getById(userId);
+            const { userId } = verifyUser(token) as any;
+            return await UserModel.getById(userId) as User;
         } else {
             return null;
         }

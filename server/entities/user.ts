@@ -1,11 +1,12 @@
-import { Field, ID, ObjectType, Root } from 'type-graphql';
+import { Field, ObjectType, Root, ID } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 import { 
-    prop, Typegoose, Ref, arrayProp, 
+    prop, Typegoose, arrayProp, 
     staticMethod, instanceMethod, ModelType
 } from '@hasezoey/typegoose';
 
-import { Event } from './event';
+import Event from './event';
+import { Ref } from '../types/types';
 
 
 type UserModelType = ModelType<User> & typeof User;
@@ -71,6 +72,15 @@ export default class User extends Typegoose {
         password: string
     ): Promise<boolean> {
         return await bcrypt.compare(password, this.password)
+    }
+
+    @instanceMethod
+    public async addEvent(
+        this: UserInstanceType,
+        event: Event
+    ): Promise<User> {
+        this.createdEvents.push(event)
+        return this.save();
     }
 }
 
