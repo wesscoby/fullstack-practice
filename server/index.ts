@@ -9,10 +9,10 @@ import { buildSchema } from 'type-graphql';
 import * as uuid from 'uuid/v4';
 
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
-
 import { UserResolver } from './resolvers/user';
 import { EventResolver } from './resolvers/event';
-// import { signUser, LocalStrategy } from './helpers/auth';
+// import './helpers/passport-auth';
+import { buildContext } from './helpers/auth';
 
 
 const startServer = async () => {
@@ -20,19 +20,6 @@ const startServer = async () => {
     const schema = await buildSchema({
         resolvers: [ UserResolver, EventResolver ],
         dateScalarMode: "isoDate"
-    });
-
-    // Apollo Server instance
-    const server = new ApolloServer({
-        schema,
-        context: async ({ req, res }) => ({ req, res }),
-        formatError: error => {
-            if(error.originalError instanceof ApolloError ) return error;
-            return {
-                message: error.message,
-                path: error.path,
-            }
-        }
     });
 
     // Express instance
@@ -52,25 +39,22 @@ const startServer = async () => {
         })
     );
 
-    // passport.use();
-
     // Initialize Passport 
     // app.use(passport.initialize());
     // app.use(passport.session());
 
-    // Serialize user
-    // passport.serializeUser((user, done) => {
-    //     done(null, user.id);
-    // });
-    
-    // Deserialize User
-    // passport.deserializeUser((userId, done) => {
-    //     models.User.findById(userId, (error, user) => {
-    //         const token = signUser(user);
-    //         done(error, token);
-    //     });
-    // });
-
+    // Apollo Server instance
+    const server = new ApolloServer({
+        schema,
+        context: async ({ req, res }) => buildContext( req, res ),
+        formatError: error => {
+            if(error.originalError instanceof ApolloError ) return error;
+            return {
+                message: error.message,
+                path: error.path
+            }
+        }
+    });
 
     // Add Express Middleware to ApolloServer
     server.applyMiddleware({ app, cors: false  });

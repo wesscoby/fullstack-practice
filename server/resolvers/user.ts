@@ -1,8 +1,10 @@
-import { Resolver, Query, Arg, Mutation } from 'type-graphql';
+import { Resolver, Query, Arg, Mutation, Ctx } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
+// import * as passport from 'passport'
 
 import User, { UserModel } from '../entities/user';
-import { LoginInput, NewUserInput } from './types/user.input';
+import { LoginInput, NewUserInput } from '../types/inputs';
+import { MyContext } from '../types/interfaces';
 
 
 @Resolver()
@@ -14,23 +16,27 @@ export class UserResolver {
     }
 
     // User Login
-    @Query(() => User)
+    @Query(() => User, { nullable: true })
     async login(
-        @Arg("loginInput") { email, password }: LoginInput
-    ): Promise<User> {
-        const user = await UserModel.findOne({ email: email });
-        if(!user) throw new Error("Invalid Credentials!");
-
-        const isPasswordMatch = await bcrypt.compare(password, user.password)
-        if(!isPasswordMatch) throw new Error("Invalid Credentials!");
-        
-        return user;
+        @Arg("loginInput") { email, password }: LoginInput,
+        @Ctx() context: MyContext
+    ): Promise<User | null> {
+        const isAuth = await context.login(email, password);
+        if(isAuth) {
+            return await context.getUser();
+        } else {
+            return null;
+        }
     }
 
     // Get Current User
-    @Query(() => User)
-    async currentUser(): Promise<User[]> {
-        return await UserModel.find({}).exec();
+    @Query(() => User, { nullable: true })
+    async currentUser(@Ctx() { isAuthenticated, getUser }: MyContext): Promise<User | null> {
+        if(!isAuthenticated()) {
+            return null;
+        } else {
+            return await getUser();
+        }
     }
 
     // User Signup
@@ -48,7 +54,8 @@ export class UserResolver {
         
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new UserModel({
-            name: `${firstName} ${lastName}`,
+            firstName, 
+            lastName,
             email,
             password: hashedPassword
         })
