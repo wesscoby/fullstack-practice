@@ -19,7 +19,8 @@ const startServer = async () => {
 
     const schema = await buildSchema({
         resolvers: [ UserResolver, EventResolver ],
-        dateScalarMode: "isoDate"
+        dateScalarMode: "isoDate",
+        authChecker: async ({ context: { isAuthenticated } }) => (isAuthenticated()) ? true : false
     });
 
     // Express instance

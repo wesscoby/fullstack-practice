@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Mutation, Ctx } from 'type-graphql';
+import { Resolver, Query, Arg, Mutation, Ctx, Authorized } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 // import * as passport from 'passport'
 
@@ -10,6 +10,7 @@ import { MyContext } from '../types/interfaces';
 @Resolver()
 export class UserResolver {
     // Get all Users
+    @Authorized()
     @Query(() => [User])
     async users(): Promise<User[]> {
         return await UserModel.find({}).exec();
