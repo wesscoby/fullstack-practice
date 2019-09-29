@@ -30,6 +30,16 @@ export function buildContext(request: Request, response: Response): MyContext {
         return true ;
     }
 
+    const logout = async(): Promise<boolean> => {
+        return new Promise((resolve, reject) => {
+            request.session!.destroy(error => {
+                if(error) return reject(false);
+                response.clearCookie("connect.sid");
+                return resolve(true);
+            })
+        })
+    }
+
     const isAuthenticated = (): boolean => (request.session!.token) ? true : false;
     
     const getUser = async(): Promise<User | null> => {
@@ -43,6 +53,6 @@ export function buildContext(request: Request, response: Response): MyContext {
     }
 
     return {
-        request, response, getUser, login, isAuthenticated
+        request, response, getUser, login, isAuthenticated, logout
     }
 }

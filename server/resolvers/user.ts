@@ -30,6 +30,12 @@ export class UserResolver {
         }
     }
 
+    // User Logout
+    @Query(() => Boolean)
+    async logout(@Ctx() { logout }: MyContext): Promise<boolean> {
+        return await logout();
+    }
+
     // Get Current User
     @Query(() => User, { nullable: true })
     async currentUser(@Ctx() { isAuthenticated, getUser }: MyContext): Promise<User | null> {

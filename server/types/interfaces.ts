@@ -5,7 +5,8 @@ export interface MyContext {
     request: Request;
     response: Response;
     isAuthenticated(): boolean;
-    login(email: string, password: string): Promise<boolean>
+    login(email: string, password: string): Promise<boolean>;
+    logout(): Promise<boolean>
     getUser(): Promise<User | null>
 }
 
