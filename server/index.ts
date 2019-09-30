@@ -4,20 +4,21 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as session from 'express-session';
 import { set, connect } from 'mongoose';
-// import * as passport from 'passport';
 import { buildSchema } from 'type-graphql';
 import * as uuid from 'uuid/v4';
+// import * as passport from 'passport';
 
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
-import { UserResolver } from './resolvers/user';
-import { EventResolver } from './resolvers/event';
-// import './helpers/passport-auth';
+import UserResolver from './resolvers/user.resolver';
+import EventResolver from './resolvers/event.resolver';
+import BookingResolver from './resolvers/booking.resolver';
 import { buildContext } from './helpers/auth';
+// import './helpers/passport-auth';
 
 
 const startServer = async () => {
     const schema = await buildSchema({
-        resolvers: [ UserResolver, EventResolver ],
+        resolvers: [ UserResolver, EventResolver, BookingResolver ],
         dateScalarMode: "isoDate",
         authChecker: async (
             { context: { isAuthenticated } }

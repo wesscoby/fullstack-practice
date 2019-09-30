@@ -8,7 +8,7 @@ import { MyContext } from '../types/interfaces';
 
 
 @Resolver()
-export class UserResolver {
+export default class UserResolver {
     //! Queries
     //* Get all Users
     @Authorized()
