@@ -11,13 +11,14 @@ import * as uuid from 'uuid/v4';
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
 import { UserResolver } from './resolvers/user';
 import { EventResolver } from './resolvers/event';
+import BookingResolver from './resolvers/booking.resolver';
 // import './helpers/passport-auth';
 import { buildContext } from './helpers/auth';
 
 
 const startServer = async () => {
     const schema = await buildSchema({
-        resolvers: [ UserResolver, EventResolver ],
+        resolvers: [ UserResolver, EventResolver, BookingResolver ],
         dateScalarMode: "isoDate",
         authChecker: async (
             { context: { isAuthenticated } }
