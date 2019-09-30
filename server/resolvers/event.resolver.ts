@@ -1,9 +1,8 @@
 import { Resolver, Query, Arg, Ctx, Mutation, Authorized } from 'type-graphql';
 
-import Event, { EventModel } from '../entities/event';
-import { NewEventInput } from '../types/inputs';
-import { MyContext } from '../types/interfaces';
-import User from '../entities/user';
+import { User, Event, EventModel } from '../entities/';
+import { NewEventInput, MyContext } from '../types/';
+
 
 @Resolver()
 export default class EventResolver {

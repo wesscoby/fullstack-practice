@@ -1,6 +1,6 @@
 import { prop, Typegoose, ModelType, staticMethod, Ref } from '@hasezoey/typegoose';
 import { Field, Float, ObjectType, ID } from 'type-graphql';
-import User from './user';
+import { User } from './';
 
 type EventModelType = ModelType<Event> & typeof Event;
 // type EventInstanceType = InstanceType<Event | any>;

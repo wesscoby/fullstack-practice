@@ -5,7 +5,7 @@ import {
     instanceMethod, ModelType, Ref
 } from '@hasezoey/typegoose';
 
-import Event from './event';
+import { Event } from './';
 
 
 type UserModelType = ModelType<User> & typeof User;
