@@ -1,4 +1,0 @@
-input UserInput {
-    email: String!
-    password: String!
-}

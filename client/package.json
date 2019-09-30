@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.7",
+    "@types/react-dom": "^16.9.1",
+    "@types/react-router-dom": "^5.1.0",
     "apollo-boost": "^0.4.4",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-link-http": "^1.5.16",
@@ -17,13 +21,17 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
+    "typescript": "^3.6.3",
     "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "sass:build": "sass ./scss/index.scss ./src/index.css --style compressed",
-    "sass:watch": "sass --watch ./scss:./src --style compressed",
+    "sass:build": "sass ./scss/index.scss ./src/style/index.css --style compressed",
+    "sass:watch": "sass --watch ./scss:./src/style --style compressed",
+    "schema:download": "apollo schema:download --endpoint=http://localhost:5000/graphql",
+    "codegen:generate": "apollo codegen:generate ./src/schemaTypes.ts --queries=./src/graphql/*.ts --localSchemaFile=./schema.json --outputFlat --target=typescript",
+    "gen:types": "npm run schema:download && npm run codegen:generate",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
