@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
-import Elipsis from '../loaders/Elipsis';
 import { Link } from 'react-router-dom';
+
 import { FormState } from "../../interface/state";
+import { Elipsis } from '../';
 
 interface SignupFormState extends FormState {
     fullNameInput: string;

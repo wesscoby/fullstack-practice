@@ -28,5 +28,4 @@ yarn-error.log*
 
 
 # Graphql generated files
-schema.json
-schemaTypes.ts 
+client/src/graphql/schema

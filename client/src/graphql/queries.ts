@@ -68,9 +68,7 @@ query getAllUsersQuery {
 
 export const userLogoutQuery = gql`
 query userLogoutQuery {
-    {
-        logout
-    }
+    logout
 }`;
 
 //! Booking Queries

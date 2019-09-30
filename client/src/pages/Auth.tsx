@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { MDBRow, MDBCol } from 'mdbreact';
 
-import LoginForm from '../components/forms/LoginForm';
-import SignUpForm from '../components/forms/SignUpForm';
-import ResetPasswordForm from '../components/forms/ResetPasswordForm';
+import { LoginForm, SignUpForm, ResetPasswordForm } from '../components';
+
 
 class AuthPage extends Component {
 
