@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import AuthPage from './pages/Auth';
-import EventsPage from './pages/Events';
-import BookingsPage from './pages/Bookings';
-import MainNavigation from './components/navigation/MainNavigation';
+
+import { AuthPage, EventsPage, BookingsPage } from './pages/';
+import { MainNavigation } from './components/';
 
 function App() {
   return (

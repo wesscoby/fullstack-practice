@@ -9,9 +9,7 @@ import * as uuid from 'uuid/v4';
 // import * as passport from 'passport';
 
 import { LocalDB_URI, PORT, SESSION_SECRET } from './config';
-import UserResolver from './resolvers/user.resolver';
-import EventResolver from './resolvers/event.resolver';
-import BookingResolver from './resolvers/booking.resolver';
+import { UserResolver, EventResolver, BookingResolver } from './resolvers';
 import { buildContext } from './helpers/auth';
 // import './helpers/passport-auth';
 

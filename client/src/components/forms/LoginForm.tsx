@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
-import Elipsis from '../loaders/Elipsis';
 import { Link } from 'react-router-dom';
+
+import { Elipsis } from '../';
 import { FormState } from "../../interface/state";
+
 
 interface LoginFormState extends FormState {
     passwordInput: string;

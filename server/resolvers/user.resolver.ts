@@ -2,9 +2,8 @@ import { Resolver, Query, Arg, Mutation, Ctx, Authorized } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 // import * as passport from 'passport'
 
-import User, { UserModel } from '../entities/user';
-import { LoginInput, NewUserInput } from '../types/inputs';
-import { MyContext } from '../types/interfaces';
+import { User, UserModel } from '../entities/';
+import { LoginInput, NewUserInput, MyContext } from '../types/';
 
 
 @Resolver()

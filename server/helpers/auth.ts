@@ -1,8 +1,9 @@
 import { sign, verify } from 'jsonwebtoken';
 import { Request, Response } from 'express';
 import { ACCESS_TOKEN_SECRET } from '../config';
-import User, { UserModel } from '../entities/user';
-import { MyContext } from '../types/interfaces';
+
+import { User, UserModel } from '../entities/';
+import { MyContext } from '../types/';
 
 
 export function buildContext(request: Request, response: Response): MyContext {

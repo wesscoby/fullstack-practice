@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBCardHeader } from 'mdbreact';
-import Elipsis from '../loaders/Elipsis';
+
+import { Elipsis } from '../';
 import { FormState } from "../../interface/state";
 
 class ResetPasswordForm extends Component<any> {
