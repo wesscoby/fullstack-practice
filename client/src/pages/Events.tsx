@@ -1,8 +1,9 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
-import Elipsis from '../components/loaders/Elipsis';
 import { MDBRow, MDBCol } from 'mdbreact';
+
+import { getAllEventsQuery } from './../graphql/queries';
+import Elipsis from '../components/loaders/Elipsis';
 
 interface Creator {
     name: string;
@@ -28,7 +29,7 @@ const pageStyle = {
     boxShadow: "2px 2px 5px 4px #eee"
 }
 
-const EventsPage = ({ data: { loading, events } }: any) => (
+const EventsPage = ({ getAllEventsQuery: { loading, events } }: any) => (
     <div>
         <h1>Events Page</h1>
         <div>
@@ -57,21 +58,6 @@ const EventsPage = ({ data: { loading, events } }: any) => (
         }
         </div>
     </div>
-)
+);
 
-
-const EventsQuery = gql`{
-    events {
-        id
-        title
-        description
-        price
-        date
-        creator {
-            name
-            email
-        }
-    }
-}`
-
-export default graphql(EventsQuery)(EventsPage);
+export default graphql(getAllEventsQuery, { name: 'getAllEventsQuery' })(EventsPage);
