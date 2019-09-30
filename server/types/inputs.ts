@@ -38,7 +38,7 @@ export class LoginInput {
 @InputType()
 export class NewEventInput {
     @Field()
-    @Length(20, 100, { message: "Title field must be at least 20 characters long" })
+    @Length(10, 100, { message: "Title field must be at least 10 characters long" })
     title: string;
     
     @Field()
