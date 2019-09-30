@@ -6,7 +6,7 @@ import { MyContext } from '../types/interfaces';
 import User from '../entities/user';
 
 @Resolver()
-export class EventResolver {
+export default class EventResolver {
     //! Queries
     //* Get all Events
     @Query(() => [Event])
