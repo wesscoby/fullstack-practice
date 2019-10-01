@@ -1,10 +1,3 @@
-import EventsPage from './Events';
-import AuthPage from './Auth';
-import BookingsPage from './Bookings';
-
-// Combine all exports from the folder
-export {
-    EventsPage,
-    AuthPage,
-    BookingsPage
-}
+export { default as EventsPage } from './Events';
+export { default as AuthPage } from './Auth';
+export { default as BookingsPage } from './Bookings';
