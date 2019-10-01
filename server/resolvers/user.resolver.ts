@@ -22,7 +22,7 @@ export default class UserResolver {
         @Arg("loginInput") { email, password }: LoginInput,
         @Ctx() context: MyContext
     ): Promise<User | null> {
-        const isAuth = await context.login(email, password);
+        const isAuth = await context.login('graphql-local', { email, password });
         if(isAuth) {
             return await context.getUser();
         } else {
@@ -32,7 +32,8 @@ export default class UserResolver {
 
     //* User Logout
     @Query(() => Boolean)
-    async logout(@Ctx() { logout }: MyContext): Promise<boolean> {
+    async logout(@Ctx() { logout, isAuthenticated }: MyContext): Promise<boolean> {
+        console.log({ login: isAuthenticated()})
         return await logout();
     }
 
