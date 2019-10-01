@@ -1,9 +1,3 @@
-import User, { UserModel } from './user';
-import Booking, { BookingModel } from './booking';
-import Event, { EventModel } from './event';
-
-export {
-    User, UserModel,
-    Event, EventModel,
-    Booking, BookingModel
-}
+export { default as User, UserModel } from './user';
+export { default as Booking, BookingModel } from './booking';
+export { default as Event, EventModel } from './event';

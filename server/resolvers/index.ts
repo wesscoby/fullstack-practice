@@ -1,10 +1,3 @@
-import UserResolver from './user.resolver';
-import EventResolver from './event.resolver';
-import BookingResolver from './booking.resolver';
-
-
-export {
-    UserResolver,
-    EventResolver,
-    BookingResolver
-}
+export { default as UserResolver } from './user.resolver';
+export { default as EventResolver } from './event.resolver';
+export { default as BookingResolver } from './booking.resolver';
