@@ -33,8 +33,8 @@ export default class UserResolver {
     //* User Logout
     @Query(() => Boolean)
     async logout(@Ctx() { logout, isAuthenticated }: MyContext): Promise<boolean> {
-        console.log({ login: isAuthenticated()})
-        return await logout();
+        if(!isAuthenticated()) return false;
+        else return await logout();
     }
 
     //* Get Current User
