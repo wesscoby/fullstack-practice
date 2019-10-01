@@ -63,7 +63,19 @@ export default class User extends Typegoose {
         id: string
     ): Promise<User | null> {
         return await this.findById(id).populate({ path: 'createdEvents' });
-    } 
+    }
+    
+    @staticMethod
+    public static async authenticate(
+        this: UserModelType,
+        email: string, password: string
+    ): Promise<User | null> {
+        const user = await this.getByEmail(email)
+        if(!user) return null;
+        const isPasswordMatch = user.isPasswordMatch(password);
+        if(!isPasswordMatch) return null;
+        return user;
+    }
 
     // Instance Methods
     @instanceMethod
