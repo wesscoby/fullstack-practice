@@ -1,8 +1,7 @@
 import { Resolver, Query, Arg, Ctx, Mutation, Authorized } from 'type-graphql';
 
-import Booking, { BookingModel } from '../entities/booking';
-import { EventModel } from '../entities/event';
-import { MyContext } from '../types/interfaces';
+import { Booking, BookingModel, EventModel } from '../entities/';
+import { MyContext } from '../types/';
 
 @Resolver()
 export default class BookingResolver {

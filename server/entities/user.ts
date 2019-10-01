@@ -5,7 +5,7 @@ import {
     instanceMethod, ModelType, Ref
 } from '@hasezoey/typegoose';
 
-import Event from './event';
+import { Event } from './';
 
 
 type UserModelType = ModelType<User> & typeof User;
@@ -63,7 +63,7 @@ export default class User extends Typegoose {
         id: string
     ): Promise<User | null> {
         return await this.findById(id).populate({ path: 'createdEvents' });
-    } 
+    }
 
     // Instance Methods
     @instanceMethod

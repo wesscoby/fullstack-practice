@@ -2,8 +2,8 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import { MDBRow, MDBCol } from 'mdbreact';
 
-import { getAllEventsQuery } from './../graphql/queries';
-import Elipsis from '../components/loaders/Elipsis';
+import { getAllEventsQuery } from '../graphql/';
+import { Elipsis } from '../components/';
 
 interface Creator {
     name: string;

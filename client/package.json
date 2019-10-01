@@ -29,8 +29,8 @@
     "build": "react-scripts build",
     "sass:build": "sass ./scss/index.scss ./src/style/index.css --style compressed",
     "sass:watch": "sass --watch ./scss:./src/style --style compressed",
-    "schema:download": "apollo schema:download --endpoint=http://localhost:5000/graphql",
-    "codegen:generate": "apollo codegen:generate ./src/schemaTypes.ts --queries=./src/graphql/*.ts --localSchemaFile=./schema.json --outputFlat --target=typescript",
+    "schema:download": "apollo schema:download ./src/graphql/schema/schema.json --endpoint=http://localhost:5000/graphql",
+    "codegen:generate": "apollo codegen:generate ./src/graphql/schema/types.ts --queries=./src/graphql/*.ts --localSchemaFile=./schema.json --outputFlat --target=typescript",
     "gen:types": "npm run schema:download && npm run codegen:generate",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

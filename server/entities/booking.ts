@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID } from "type-graphql";
 import { Typegoose, prop, Ref, ModelType, staticMethod } from "@hasezoey/typegoose";
-import Event from "./event";
-import User from './user'
+
+import { User, Event } from './'
 
 type BookingModelType = ModelType<Booking> & typeof Booking;
 @ObjectType()

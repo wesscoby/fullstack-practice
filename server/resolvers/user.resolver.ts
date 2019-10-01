@@ -2,9 +2,8 @@ import { Resolver, Query, Arg, Mutation, Ctx, Authorized } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 // import * as passport from 'passport'
 
-import User, { UserModel } from '../entities/user';
-import { LoginInput, NewUserInput } from '../types/inputs';
-import { MyContext } from '../types/interfaces';
+import { User, UserModel } from '../entities/';
+import { LoginInput, NewUserInput, MyContext } from '../types/';
 
 
 @Resolver()
@@ -23,7 +22,7 @@ export default class UserResolver {
         @Arg("loginInput") { email, password }: LoginInput,
         @Ctx() context: MyContext
     ): Promise<User | null> {
-        const isAuth = await context.login(email, password);
+        const isAuth = await context.login('graphql-local', { email, password });
         if(isAuth) {
             return await context.getUser();
         } else {
@@ -33,8 +32,9 @@ export default class UserResolver {
 
     //* User Logout
     @Query(() => Boolean)
-    async logout(@Ctx() { logout }: MyContext): Promise<boolean> {
-        return await logout();
+    async logout(@Ctx() { logout, isAuthenticated }: MyContext): Promise<boolean> {
+        if(!isAuthenticated()) return false;
+        else return await logout();
     }
 
     //* Get Current User
