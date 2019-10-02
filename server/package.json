@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node-dev index.ts",
-    "dev": "ts-node-dev --respawn index.ts"
+    "dev": "ts-node-dev --respawn index.ts",
+    "publish:schema": "npx apollo service:push --endpoint=http://localhost:5000/graphql",
+    "check:schema": "npx apollo service:check --endpoint=http://localhost:5000/graphql"
   },
   "keywords": [],
   "author": "WessCoby",
