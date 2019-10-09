@@ -1,12 +1,7 @@
 import * as dotenv from 'dotenv'
 dotenv.config();
 
-interface Config {
-    PORT: string
-    SESSION_SECRET: string;
-    LocalDB_URI: string
-    ACCESS_TOKEN_SECRET: string
-}
+import { Config } from './types';
 
 export const {
     PORT,
