@@ -28,7 +28,7 @@ export default class EventResolver {
         @Ctx() { getUser }: MyContext
     ): Promise<Event> { 
         try {
-            const user = await getUser() as User;
+            const user = await getUser()  as User;
     
             // Add Current User Id to new Event
             const event = new EventModel({
@@ -40,7 +40,10 @@ export default class EventResolver {
             })
     
             const createdEvent: Event = await event.save() as Event;
+            user.createdEvents.push(createdEvent);
+
             await user.addEvent(createdEvent);
+
             return await EventModel.getOne(createdEvent.id) as Event;
         } catch(error) {
             throw error;

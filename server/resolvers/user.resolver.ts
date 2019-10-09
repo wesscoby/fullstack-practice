@@ -13,7 +13,8 @@ export default class UserResolver {
     @Authorized()
     @Query(() => [User])
     async users(): Promise<User[]> {
-        return await UserModel.find({}).populate({ path: 'createdEvents' });
+        let users = await UserModel.find({}).populate({ path: 'createdEvents' }).exec();
+        return await users;
     }
 
     //* User Login
@@ -31,6 +32,7 @@ export default class UserResolver {
     }
 
     //* User Logout
+    @Authorized()
     @Query(() => Boolean)
     async logout(@Ctx() { logout, isAuthenticated }: MyContext): Promise<boolean> {
         if(!isAuthenticated()) return false;

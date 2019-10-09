@@ -1,13 +1,15 @@
-import { prop, Typegoose, ModelType, staticMethod, Ref } from '@hasezoey/typegoose';
+import { prop, ReturnModelType, Ref, getModelForClass, modelOptions } from '@typegoose/typegoose';
 import { Field, Float, ObjectType, ID } from 'type-graphql';
+import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+
 import { User } from './';
 
-type EventModelType = ModelType<Event> & typeof Event;
-// type EventInstanceType = InstanceType<Event | any>;
+type EventModelType = ReturnModelType<typeof Event>;
 
 //! Event Class
 @ObjectType()
-export default class Event extends Typegoose {
+@modelOptions({ schemaOptions: { timestamps: true } })
+export default class Event extends TimeStamps {
     @Field(() => ID)
     readonly id: string;
     
@@ -39,7 +41,6 @@ export default class Event extends Typegoose {
     public updatedAt: Date;
 
     // Static Methods
-    @staticMethod
     public static async getOne(
         this: EventModelType,
         id: string
@@ -54,7 +55,6 @@ export default class Event extends Typegoose {
                         });
     }
 
-    @staticMethod
     public static async getAll(
         this: EventModelType
     ): Promise<Event[]> {
@@ -70,7 +70,5 @@ export default class Event extends Typegoose {
 }
 
 //! Event Model
-export const EventModel = new Event().getModelForClass(Event, {
-    schemaOptions: { timestamps: true }
-})
+export const EventModel = getModelForClass(Event);
 

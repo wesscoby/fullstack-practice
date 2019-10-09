@@ -1,19 +1,19 @@
-import { Field, ObjectType, Root, ID } from 'type-graphql';
+import { Field, ObjectType, ID, Root } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 import { 
-    prop, Typegoose, arrayProp, staticMethod, 
-    instanceMethod, ModelType, Ref
-} from '@hasezoey/typegoose';
+    prop, arrayProp, Ref, ReturnModelType, getModelForClass, modelOptions, DocumentType
+} from '@typegoose/typegoose';
+import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 
 import { Event } from './';
 
 
-type UserModelType = ModelType<User> & typeof User;
-type UserInstanceType = InstanceType<User | any>;
+type UserModelType = ReturnModelType<typeof User>;
 
 //! User Class 
 @ObjectType()
-export default class User extends Typegoose {
+@modelOptions({ schemaOptions: { timestamps: true } })
+export default class User extends TimeStamps {
     @Field(() => ID)
     readonly id: string;
 
@@ -24,8 +24,8 @@ export default class User extends Typegoose {
     public lastName: string;
     
     @Field(() => String)
-    public name(@Root() { firstName, lastName }: UserInstanceType): string {
-        return `${firstName} ${lastName}`;
+    public async name(@Root() { firstName, lastName }: DocumentType<User>): Promise<string> {
+        return await `${firstName} ${lastName}`;
     }
     
     @Field()
@@ -41,13 +41,12 @@ export default class User extends Typegoose {
     public createdEvents: Ref<Event>[];
 
     @Field()
-    public createdAt: Date
+    public createdAt: Date;
 
     @Field()
     public updatedAt: Date;
 
     // Static Methods
-    @staticMethod
     public static async getByEmail(
         this: UserModelType,
         email: string
@@ -57,7 +56,6 @@ export default class User extends Typegoose {
                         .populate({ path: 'createdEvents' })
     }
 
-    @staticMethod
     public static async getById(
         this: UserModelType,
         id: string
@@ -66,25 +64,20 @@ export default class User extends Typegoose {
     }
 
     // Instance Methods
-    @instanceMethod
     public async isPasswordMatch(
-        this: UserInstanceType, 
         password: string
     ): Promise<boolean> {
         return await bcrypt.compare(password, this.password)
     }
 
-    @instanceMethod
     public async addEvent(
-        this: UserInstanceType,
+        // this: ReturnModelType<typeof User>,
         event: Event
-    ): Promise<User> {
-        this.createdEvents.push(event)
-        return this.save();
+    ) {
+        this.createdEvents.push(event);
+        // return await this.save();
     }
 }
 
 //! User Model
-export const UserModel = new User().getModelForClass(User, {
-    schemaOptions: { timestamps: true }
-});
+export const UserModel = getModelForClass(User);
