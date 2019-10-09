@@ -1,11 +1,14 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import { Typegoose, prop, Ref, ModelType, staticMethod } from "@hasezoey/typegoose";
+import { prop, Ref, ReturnModelType, getModelForClass, modelOptions } from "@typegoose/typegoose";
+import { TimeStamps } from "@typegoose/typegoose/lib/defaultClasses";
 
 import { User, Event } from './'
 
-type BookingModelType = ModelType<Booking> & typeof Booking;
+type BookingModelType = ReturnModelType<typeof Booking>;
+
 @ObjectType()
-export default class Booking extends Typegoose {
+@modelOptions({ schemaOptions: { timestamps: true } })
+export default class Booking extends TimeStamps {
     @Field(() => ID)
     readonly id: string;
 
@@ -24,7 +27,6 @@ export default class Booking extends Typegoose {
     public updatedAt: Date;
 
     // Static Methods
-    @staticMethod
     public static async getOne(
         this: BookingModelType,
         id: string
@@ -41,7 +43,6 @@ export default class Booking extends Typegoose {
                         })
     }
 
-    @staticMethod
     public static async getAll(
         this: BookingModelType
     ): Promise<Booking[]> {
@@ -58,6 +59,4 @@ export default class Booking extends Typegoose {
     }
 }
 
-export const BookingModel = new Booking().getModelForClass(Booking, {
-    schemaOptions: { timestamps: true }
-})
+export const BookingModel = getModelForClass(Booking)
